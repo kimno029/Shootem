@@ -1,0 +1,15 @@
+html, body {
+	padding: 0;
+	margin: 0;
+}
+html, body, .main-container{
+	width: 100%;
+}
+#cnx-holder {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+}
+#cnx {
+	background-color: #cce1ff;
+}
