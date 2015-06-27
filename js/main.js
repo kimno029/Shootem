@@ -1,3 +1,49 @@
+var KN = {
+	scriptsToLoad: [], // path names.
+	scriptRoot: 'js/',
+	doLoader: [],
+    noToLoad: 0,
+	addScript: function(path, hasLoader){
+		this.scriptsToLoad.push(path);
+        this.noToLoad++;
+	},
+	loadScripts: function(){
+		var head = document.getElementsByTagName('head')[0];
+		var path = this.scriptRoot;
+		this.scriptsToLoad.forEach(function(i){
+			var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src= path +i;
+			head.appendChild(s);
+		});
+	},
+	afterScriptsLoaded: function(){
+		console.log("afterLoad");
+		this.doLoader.forEach(function(i){
+			i.afterLoad();
+		});
+        this.engine.addObject(cube);
+        this.engine.pause();
+	},
+    isLoaded: function(){ // Replace with smarter strategy?
+        if( --this.noToLoad <= 0) {
+            this.afterScriptsLoaded();
+        }
+    }
+
+};
+function initFunction(){
+	cnx = document.getElementById('cnx');
+	var r = cnx.getBoundingClientRect();
+	offsets.x = -r.left;
+	offsets.y = -r.top;
+	KN.addScript('engine.js',true);
+    KN.loadScripts();
+    document.getElementById('cnx').addEventListener('mousedown',doPause);
+}
+
+
+
 var cnx;
 var evtHolder = null;
 var cube = {
@@ -8,7 +54,16 @@ var cube = {
 	xMove: 5,
 	yMove: 3,
 	spd: 4,
-	color: '#a1b1c1'
+	color: '#a1b1c1',
+    paintMe: function(ctx){
+        ctx.fillStyle = this.color;
+        ctx.rect(this.x, this.y, this.w, this.h);
+        ctx.fill();
+    },
+    doMove: function(){
+        this.x += this.xMove;
+        this.y += this.yMove;
+    }
 }
 var click = {
 	x: 0,
@@ -20,26 +75,20 @@ var offsets = {
 	y: 0
 }
 
-function initFunction(){
-	cnx = document.getElementById('cnx');
-	var r = cnx.getBoundingClientRect();
-	offsets.x = -r.left;
-	offsets.y = -r.top;
-	cnx.addEventListener('mousedown',doPause);
-}
 
 function doPause(evt) {
-	click.x = evt.x + offsets.x;
-	click.y = evt.y + offsets.y;
-	setCourse(cube, evt.x,evt.y);
-	// console.log(evt);
-	 if (evtHolder) {
-	 	clearInterval(evtHolder);
-	 	evtHolder=null;
-	 } else {
-		evtHolder = setInterval(drawCube, 20);
+    click.x = evt.x + offsets.x;
+    click.y = evt.y + offsets.y;
+    setCourse(cube, evt.x,evt.y);
+    // KN.engine.pause();
+	// // console.log(evt);
+	//  if (evtHolder) {
+	//  	// clearInterval(evtHolder);
+	//  	// evtHolder=null;
+	//  } else {
+	// 	evtHolder = setInterval(drawCube, 20);
 
-	 }
+	//  }
 }
 function setCourse(obj, x, y){
 	var dx =  Math.abs(x - obj.x);
@@ -67,6 +116,5 @@ function drawCube(){
 	ctx.rect(click.x-1, click.y-1, 3, 3);
 	ctx.fill();
 }
-
 
 window.addEventListener('load',initFunction);
