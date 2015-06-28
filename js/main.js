@@ -3,6 +3,7 @@ var KN = {
 	scriptRoot: 'js/',
 	doLoader: [],
     noToLoad: 0,
+    noLoaded: 0,
 	addScript: function(path, hasLoader){
 		this.scriptsToLoad.push(path);
         this.noToLoad++;
@@ -16,29 +17,43 @@ var KN = {
             s.src= path +i;
 			head.appendChild(s);
 		});
+		
 	},
 	afterScriptsLoaded: function(){
 		console.log("afterLoad");
+        this.Engine.addObject(cube);
 		this.doLoader.forEach(function(i){
 			i.afterLoad();
 		});
-        this.engine.addObject(cube);
-        this.engine.pause();
+        this.Engine.pause();
 	},
     isLoaded: function(){ // Replace with smarter strategy?
         if( --this.noToLoad <= 0) {
             this.afterScriptsLoaded();
         }
+    },
+    createModule: function(name, moduleObject){
+    	this[name] = moduleObject;
+    	if (moduleObject.require) {
+    		moduleObject.require.forEach(function(r){
+    			console.log(name," Requires ", r);
+    		})
+    	}
+    	this[name].afterLoad();
+    	if (++this.noLoaded >= this.scriptsToLoad.length) {
+    		this.afterScriptsLoaded();
+    	}
     }
-
 };
 function initFunction(){
 	cnx = document.getElementById('cnx');
 	var r = cnx.getBoundingClientRect();
 	offsets.x = -r.left;
 	offsets.y = -r.top;
-	KN.addScript('engine.js',true);
+	KN.addScript('engine.js');
+	KN.addScript('scoreboard.js');
     KN.loadScripts();
+    // KN.afterScriptsLoaded()
     document.getElementById('cnx').addEventListener('mousedown',doPause);
 }
 
@@ -60,7 +75,7 @@ var cube = {
         ctx.rect(this.x, this.y, this.w, this.h);
         ctx.fill();
     },
-    doMove: function(){
+    doTick: function(){
         this.x += this.xMove;
         this.y += this.yMove;
     }
@@ -80,7 +95,7 @@ function doPause(evt) {
     click.x = evt.x + offsets.x;
     click.y = evt.y + offsets.y;
     setCourse(cube, evt.x,evt.y);
-    // KN.engine.pause();
+    KN.Engine.pause();
 	// // console.log(evt);
 	//  if (evtHolder) {
 	//  	// clearInterval(evtHolder);
