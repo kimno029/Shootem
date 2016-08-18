@@ -1,0 +1,18 @@
+.toprow {
+	background-color: #efefef;
+	height: 2rem;
+}
+.canvas-container {
+	height: 480px
+}
+.donot-select {
+	-moz-user-select: none; 
+	-webkit-user-select: none; 
+	-ms-user-select:none;
+	user-select:none;
+	-o-user-select:none;
+}
+.scoretext-col{
+	text-align: right;
+	user-select: none;
+}
