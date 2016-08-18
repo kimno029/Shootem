@@ -7,7 +7,8 @@ Engine sorts tick rate,
 KN.createModule("Engine",{
     tick_ms: 30,
     save_tick_ms: 1000,
-    ready:false,
+    ready: false,
+    isPause: true,
     tick_handler: false,
     objects: [],
     canvas: null,
@@ -29,9 +30,12 @@ KN.createModule("Engine",{
         if(!ready) {
             console.log("Engine not ready. READY : ", this.ready);
             return;
+        } else {
+            this.pause = false;
         }
     },
     pause: function(){
+        this.isPause = !this.isPause;
         if (this.tick_handler) {
             clearInterval(this.tick_handler);
             this.tick_handler = false;

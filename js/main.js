@@ -1,4 +1,5 @@
 var scriptsToLoad = [
+	"save.js",
 	"engine.js",
 	"scoreboard.js",
 	"assets.js",
@@ -36,6 +37,7 @@ var KN = {
 				i.afterLoad();
 			}
 		});
+		KN.Save.load();
         this.Engine.pause();
 
 	},
@@ -64,16 +66,22 @@ var KN = {
     	this.clickListeners.push(obj);
     },
     onClick: function (ev) {
+    	if (KN.Engine.isPause) return;
     	this.clickPreventDefault = false;
     	KN.clickListeners.forEach(function(r){
     		r.onClick(ev);
     	});
-    	if (true || this.clickPreventDefault) {
-    		ev.stopPropagation();
-    	}
+		ev.stopPropagation();
     },
     onDoubleClick: function (ev) {
     	ev.stopPropagation();
+    },
+    onClickQuit: function (ev) {
+    	KN.Engine.pause();
+    	KN.Save.save();
+    	var body = document.getElementsByTagName("BODY")[0];
+    	body.innerHTML = "";
+    	body.className = "all-black";
     }
 };
 function initFunction(){
@@ -87,6 +95,8 @@ function initFunction(){
     // KN.afterScriptsLoaded()
     document.getElementById('cnx').addEventListener('click', KN.onClick);
     document.getElementById('cnx').addEventListener('dblclick', KN.onDoubleClick);
+    document.getElementById('quitbutton').addEventListener('click', KN.onClickQuit);
+
 }
 
 
