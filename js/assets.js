@@ -19,7 +19,7 @@ KN.createModule("Assets", {
 		src:'img/background_2.png'
 	},
 	player:{
-		src:'img/angst.png'
+		src:'img/angst_nu.png'
 	},
 	stage:{
 		src:'img/stage.png'
