@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta name="viewport" content="width=640px, user-scalable=no">
 <title>Shootem 1</title>
 <!-- LIB STATICS -->
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
@@ -13,7 +14,7 @@
 <div class="container">
 	<div class="row toprow"></div>
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-4 donot-select">
 			<h1>Soul spender</h1>
 			<ul>
 				<li>no upgrades yet</li>
@@ -25,12 +26,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row scoretext-row">
 		<div class="col-lg-6">
-			<h1>Score: </h1>
+			<h1 class="donot-select">Score: </h1>
 		</div>
 		<div class="col-lg-6 scoretext-col">
-			<h2><span id="scoretext">0</span></h2>
+			<h2><span class="donot-select" id="scoretext">0</span></h2>
 		</div>
 	</div>
 </div>

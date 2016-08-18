@@ -1,5 +1,12 @@
+/**
+Engine sorts tick rate,
+    calls tick and paintme functions on registered components,
+     use KN.Engine.addObject(component), to add to game loop
+
+*/
 KN.createModule("Engine",{
     tick_ms: 30,
+    save_tick_ms: 1000,
     ready:false,
     tick_handler: false,
     objects: [],
@@ -43,7 +50,7 @@ KN.createModule("Engine",{
     paint: function(){
         var ctx = this.ctx;
         var me = this;
-        ctx.clearRect(0,0,me.canvas.width,me.canvas.height);
+        ctx.clearRect(0, 0, me.canvas.width,me.canvas.height);
         this.objects.forEach(function(i){
             if (i.paintMe) {
                 i.paintMe(ctx);
