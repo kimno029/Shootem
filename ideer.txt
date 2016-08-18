@@ -1,0 +1,6 @@
+ideer
+Valuta heirarki--- swag/fame/trew-ness? -> fans -> pengar -> själar ->
+- Köpa utrustning - 
+- Köpa smink (war paint lol) etc
+- Köpa fans - headbangar och drar passivt in poäng. Få detta att funka offline via tidsstämplar vid save och load
+- Tyngre valuta - Souls - offra ett fan, efter x antal ticks kan ett fan offras

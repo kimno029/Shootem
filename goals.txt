@@ -1,0 +1,10 @@
+Mål att nå
+
+		3 fält enl layout: 
+			Mobilanpassat :D
+		Poängräknare
+	Canvas: rendera Angst & Backdrop
+	Klick: Angstus hoppar ger 1 poäng
+
+Spara poäng i localStorage
+Kunna köpa uppgradering, "Raised fist" jump score x2
