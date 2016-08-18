@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var bodyParser = require('body-parser');
-var port = 8001;
+var port = 8000;
 // Extensions
 // 
 app.set('view engine', 'ejs');

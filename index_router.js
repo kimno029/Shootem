@@ -14,29 +14,15 @@ router.get('/', function (req, res){
 	});
 });
 
-router.get('/add', function(req, res) {
-	var newItem = req.body.in1;
-	if (newItem) {
-		todoItems.push({
-			id: todoItems.length + 1,
-			desc: newItem
-		});
-	}
-	res.redirect('/');
-});
-
-// router.get('/login/', function (req, res){
-// 	var id = req.params.id | "bajs";
-// 	var params = "";
-// 	for (var k in req.query) {
-// 		params += k +":" +req.query[k] +"\n";
+// router.get('/add', function(req, res) {
+// 	var newItem = req.body.in1;
+// 	if (newItem) {
+// 		todoItems.push({
+// 			id: todoItems.length + 1,
+// 			desc: newItem
+// 		});
 // 	}
-// 		res.send('Hello express!: ' + params);	
-// 	return {hej:id};
+// 	res.redirect('/');
 // });
 
-// router.get('/game/', function (req, res){
-// 	// res.send('Hello express!: ' + req.);
-// 	res.render('game');
-// });
 module.exports = router;
